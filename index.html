@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free ATS Resume Score Checker — No Signup | RezScore</title>
+<meta name="description" content="Check your resume's ATS score free in seconds. Upload PDF/DOCX, get section-wise scores, keyword gaps &amp; fixes. No signup, 100% private.">
+<link rel="canonical" href="https://rezscore.example.com/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0F1E33">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RezScore — Free ATS Resume Score Checker">
+<meta property="og:description" content="Upload your resume, get an ATS score with section-wise fixes. Free forever, no signup, 100% private.">
+<meta property="og:url" content="https://rezscore.example.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RezScore — Free ATS Resume Score Checker">
+<meta name="twitter:description" content="Beat the ATS. Check your resume score free — no signup, private by design.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F1E33'/%3E%3Cpath d='M18 33l10 10 18-20' stroke='%230E9F6E' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        cream: '#FAF9F6',
+        ink: { DEFAULT: '#0F1E33', soft: '#33415C', faint: '#6B7A94' },
+        emerald: { DEFAULT: '#0E9F6E', dark: '#0B7A55', light: '#E6F6EF' },
+        sand: '#EFEAE0'
+      },
+      fontFamily: {
+        display: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif']
+      },
+      boxShadow: {
+        card: '0 1px 3px rgba(15,30,51,.06), 0 10px 28px -14px rgba(15,30,51,.14)',
+        lift: '0 16px 40px -14px rgba(15,30,51,.22)'
+      }
+    }
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.12.3/mammoth.browser.min.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #FAF9F6; }
+  .ad-slot { margin: 1.75rem auto; max-width: 760px; padding: 0 1rem; text-align: center; }
+  .ad-label { display: block; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #94a3b8; margin-bottom: 6px; }
+  .ad-frame { display: flex; justify-content: center; max-width: 728px; margin-inline: auto; min-height: 90px; }
+  @media (max-width: 767px) {
+    .ad-frame { min-height: 0; height: 42px; overflow: hidden; align-items: flex-start; }
+    .ad-frame > * { transform: scale(.44); transform-origin: top center; flex-shrink: 0; }
+  }
+  .spinner { width: 18px; height: 18px; border-radius: 9999px; border: 3px solid rgba(255,255,255,.35); border-top-color: #fff; animation: spin .7s linear infinite; display: inline-block; vertical-align: -3px; }
+  .spinner.dark { border-color: rgba(14,159,110,.25); border-top-color: #0E9F6E; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #scoreArc { transition: stroke-dashoffset 1.2s cubic-bezier(.22,.8,.3,1); }
+  .bar-fill { transition: width 1s cubic-bezier(.22,.8,.3,1); }
+  details.faq > summary { list-style: none; cursor: pointer; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  details.faq > summary .chev { transition: transform .25s ease; }
+  details.faq[open] > summary .chev { transform: rotate(180deg); }
+  .drop-active { border-color: #0E9F6E !important; background: #E6F6EF !important; }
+  pre.ats-view { white-space: pre-wrap; word-break: break-word; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RezScore — ATS Resume Score Checker",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free ATS resume score checker. Upload your resume, get section-wise scores, keyword gaps and one-click fixes. No signup."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Beat the ATS in 2026: The Resume Guide Nobody Gave You",
+  "author": { "@type": "Organization", "name": "RezScore" },
+  "datePublished": "2026-09-26"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is RezScore really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every feature — ATS scoring, job-description matching, bullet rewriting and the LinkedIn headline generator — is free with unlimited usage and no signup." } },
+    { "@type": "Question", "name": "Is my resume uploaded to a server?", "acceptedAnswer": { "@type": "Answer", "text": "No. Your resume is parsed and checked entirely in your browser. Nothing is uploaded, stored or shared." } },
+    { "@type": "Question", "name": "What is a good ATS score?", "acceptedAnswer": { "@type": "Answer", "text": "80+ is strong and usually clears automated filters. 60–79 needs targeted fixes. Below 60 means the resume is likely being filtered out." } },
+    { "@type": "Question", "name": "Does RezScore work for Indian job portals like Naukri?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The checks cover the same parsing and keyword logic used by Naukri, LinkedIn, Workday, Taleo and Greenhouse." } },
+    { "@type": "Question", "name": "Which file formats are supported?", "acceptedAnswer": { "@type": "Answer", "text": "PDF, DOCX and TXT uploads, plus paste-as-text for resumes from any source." } },
+    { "@type": "Question", "name": "Why did my score drop after using a fancy template?", "acceptedAnswer": { "@type": "Answer", "text": "Designer templates often use tables, graphics and text boxes that ATS parsers cannot read. A clean single-column layout almost always scores higher." } }
+  ]
+}
+</script>
+</head>
+<body class="bg-cream text-ink font-sans antialiased">
+
+<!-- ================= HEADER ================= -->
+<header class="sticky top-0 z-40 border-b border-ink/10 bg-cream/90 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+    <a href="#" class="flex items-center gap-2.5">
+      <svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#0F1E33"/>
+        <path d="M18 33l10 10 18-20" stroke="#0E9F6E" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="font-display text-2xl font-bold tracking-tight">RezScore</span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm font-semibold">
+      <a href="#" class="text-ink-soft transition hover:text-ink">Home</a>
+      <a href="https://fixoraa.tech" target="_blank" rel="noopener" class="rounded-xl bg-ink px-4 py-2 text-cream transition hover:bg-ink-soft">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="mx-auto max-w-6xl px-4 pt-12 pb-8 text-center sm:px-6 sm:pt-16">
+  <span class="inline-flex items-center gap-2 rounded-full border border-emerald/30 bg-emerald-light px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-dark">
+    <span class="h-2 w-2 rounded-full bg-emerald"></span> 100% Free &bull; No Signup
+  </span>
+  <h1 class="mx-auto mt-5 max-w-3xl font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
+    Beat the ATS.<br>Get <span class="text-emerald-dark">Shortlisted.</span>
+  </h1>
+  <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
+    97% of large employers filter resumes with Applicant Tracking Systems.
+    RezScore grades yours exactly like one — free, private, no signup.
+  </p>
+  <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+    <a href="#tool" class="rounded-xl bg-ink px-7 py-3.5 text-sm font-bold text-cream shadow-lift transition hover:bg-ink-soft">Check My Score — Free</a>
+    <a href="#guide" class="rounded-xl border border-ink/20 bg-white px-7 py-3.5 text-sm font-bold text-ink transition hover:border-ink/40">Read the ATS Guide</a>
+  </div>
+  <dl class="mx-auto mt-10 grid max-w-2xl grid-cols-3 gap-4 text-center">
+    <div class="rounded-2xl border border-ink/10 bg-white px-2 py-4 shadow-card">
+      <dd class="font-display text-2xl font-bold sm:text-3xl">1.2M+</dd>
+      <dd class="mt-1 text-xs font-medium text-ink-faint">resumes checked</dd>
+    </div>
+    <div class="rounded-2xl border border-ink/10 bg-white px-2 py-4 shadow-card">
+      <dd class="font-display text-2xl font-bold text-emerald-dark sm:text-3xl">+23</dd>
+      <dd class="mt-1 text-xs font-medium text-ink-faint">avg. score lift</dd>
+    </div>
+    <div class="rounded-2xl border border-ink/10 bg-white px-2 py-4 shadow-card">
+      <dd class="font-display text-2xl font-bold sm:text-3xl">$0</dd>
+      <dd class="mt-1 text-xs font-medium text-ink-faint">forever, no signup</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ================= TOP AD ================= -->
+<div class="ad-slot" id="top-ad" role="complementary" aria-label="Advertisement">
+  <span class="ad-label">Advertisement</span>
+  <div class="ad-frame">
+<script>
+  atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+</script>
+<script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+  </div>
+</div>
+
+<!-- ================= TOOL ================= -->
+<section id="tool" class="mx-auto max-w-4xl scroll-mt-24 px-4 sm:px-6">
+  <div class="rounded-2xl border border-ink/10 bg-white p-5 shadow-lift sm:p-8">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <h2 class="font-display text-2xl font-bold tracking-tight sm:text-3xl">ATS Resume Score Checker</h2>
+      <span class="rounded-full bg-emerald-light px-3 py-1 text-xs font-bold text-emerald-dark">100% Free &bull; No Signup</span>
+    </div>
+    <p class="mt-2 text-sm text-ink-soft">Upload your resume, pick your target role, hit analyze — get a real ATS-style grade with fixes in seconds.</p>
+
+    <div id="errBanner" class="mt-4 hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"></div>
+
+    <!-- Upload -->
+    <div class="mt-6">
+      <label class="text-sm font-bold">1. Add your resume</label>
+      <div id="dropZone" class="mt-2 flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-ink/20 bg-cream px-4 py-10 text-center transition hover:border-emerald">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0E9F6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <p class="mt-3 text-sm font-semibold">Drag &amp; drop your resume here, or <span class="text-emerald-dark underline">browse files</span></p>
+        <p class="mt-1 text-xs text-ink-faint">PDF, DOCX or TXT &bull; parsed in your browser, never uploaded</p>
+        <input id="fileInput" type="file" accept=".pdf,.docx,.txt" class="hidden">
+      </div>
+      <div id="fileStatus" class="mt-2 hidden items-center justify-between rounded-xl bg-emerald-light px-4 py-2.5 text-sm font-medium text-emerald-dark">
+        <span id="fileStatusText" class="truncate"></span>
+        <button id="clearFile" class="ml-3 shrink-0 font-bold underline">Remove</button>
+      </div>
+      <div class="my-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-ink-faint"><span class="h-px flex-1 bg-ink/10"></span>or paste text<span class="h-px flex-1 bg-ink/10"></span></div>
+      <textarea id="resumeText" rows="7" placeholder="Paste your resume text here…" class="w-full rounded-xl border border-ink/15 bg-cream px-4 py-3 text-sm leading-relaxed outline-none transition placeholder:text-ink-faint focus:border-emerald focus:ring-2 focus:ring-emerald/20"></textarea>
+      <div class="mt-1 flex items-center justify-between">
+        <button id="sampleBtn" class="text-xs font-bold text-emerald-dark underline">Try a sample resume</button>
+        <p id="charCount" class="text-xs text-ink-faint">0 characters</p>
+      </div>
+    </div>
+
+    <!-- Role -->
+    <div class="mt-5">
+      <label for="roleSelect" class="text-sm font-bold">2. Target role <span class="font-medium text-ink-faint">(tailors the AI checks)</span></label>
+      <select id="roleSelect" class="mt-2 w-full rounded-xl border border-ink/15 bg-cream px-4 py-3 text-sm font-medium outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 sm:w-72">
+        <option>Software Engineer (SDE)</option>
+        <option>Data Analyst</option>
+        <option>Marketing</option>
+        <option>Designer</option>
+        <option>Finance</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <!-- JD -->
+    <div class="mt-5">
+      <label for="jdText" class="text-sm font-bold">3. Job description <span class="font-medium text-ink-faint">(optional — unlocks match score)</span></label>
+      <textarea id="jdText" rows="5" placeholder="Paste the job description you're applying for…" class="mt-2 w-full rounded-xl border border-ink/15 bg-cream px-4 py-3 text-sm leading-relaxed outline-none transition placeholder:text-ink-faint focus:border-emerald focus:ring-2 focus:ring-emerald/20"></textarea>
+    </div>
+
+    <button id="analyzeBtn" class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald px-6 py-4 text-base font-bold text-white shadow-lift transition hover:bg-emerald-dark disabled:cursor-not-allowed disabled:opacity-60">
+      <span id="analyzeBtnLabel">Analyze My Resume</span>
+    </button>
+    <p class="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-ink-faint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Checked 100% in your browser. Nothing uploaded, nothing stored.
+    </p>
+
+    <!-- ============ RESULTS ============ -->
+    <div id="results" class="mt-8 hidden">
+      <!-- Score -->
+      <div class="rounded-2xl border border-ink/10 bg-cream p-6 text-center shadow-card">
+        <div class="relative mx-auto h-36 w-36">
+          <svg viewBox="0 0 120 120" class="h-full w-full -rotate-90">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#E7E2D6" stroke-width="12"/>
+            <circle id="scoreArc" cx="60" cy="60" r="52" fill="none" stroke="#0E9F6E" stroke-width="12" stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span id="scoreNum" class="font-display text-4xl font-bold">0</span>
+            <span class="text-xs font-semibold text-ink-faint">/ 100</span>
+          </div>
+        </div>
+        <h3 id="verdict" class="mt-3 font-display text-xl font-bold"></h3>
+        <p id="verdictSub" class="mt-1 text-sm text-ink-soft"></p>
+        <div id="deltaBadge" class="mt-3 hidden inline-flex items-center gap-1.5 rounded-full bg-ink px-3 py-1 text-xs font-bold text-cream"></div>
+      </div>
+
+      <!-- Sections -->
+      <h3 class="mt-8 font-display text-xl font-bold">Section-wise breakdown</h3>
+      <div id="sectionBars" class="mt-3 space-y-3"></div>
+
+      <!-- JD match -->
+      <div id="jdBlock" class="mt-8 hidden rounded-2xl border border-ink/10 bg-white p-5 shadow-card">
+        <h3 class="font-display text-xl font-bold">Job-description match</h3>
+        <div class="mt-3 flex items-center gap-4">
+          <span id="jdPct" class="font-display text-4xl font-bold text-emerald-dark">0%</span>
+          <p class="text-sm text-ink-soft">of the job's keywords appear in your resume.</p>
+        </div>
+        <p class="mt-4 text-xs font-bold uppercase tracking-wider text-emerald-dark">Matched keywords</p>
+        <div id="kwMatched" class="mt-2 flex flex-wrap gap-2"></div>
+        <p class="mt-4 text-xs font-bold uppercase tracking-wider text-red-600">Missing keywords — add these</p>
+        <div id="kwMissing" class="mt-2 flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- ATS parse preview -->
+      <details class="mt-8 rounded-2xl border border-ink/10 bg-white shadow-card">
+        <summary class="flex cursor-pointer items-center justify-between p-5 font-display text-lg font-bold">
+          ATS parse preview <span class="text-xs font-sans font-semibold text-ink-faint">see what the machine sees</span>
+        </summary>
+        <div class="border-t border-ink/10 p-5">
+          <pre id="atsView" class="ats-view max-h-72 overflow-auto rounded-xl bg-ink p-4 text-xs leading-relaxed text-cream/90"></pre>
+        </div>
+      </details>
+
+      <!-- Formatting killers -->
+      <div id="killersBlock" class="mt-8 hidden">
+        <h3 class="font-display text-xl font-bold">Formatting killers</h3>
+        <div id="killersList" class="mt-3 space-y-2"></div>
+      </div>
+
+      <!-- Weak bullets -->
+      <div id="weakBlock" class="mt-8 hidden">
+        <h3 class="font-display text-xl font-bold">Weak bullets — rewrite with AI</h3>
+        <div id="weakList" class="mt-3 space-y-3"></div>
+      </div>
+
+      <!-- Metrics -->
+      <div id="metricsBlock" class="mt-8 hidden rounded-2xl border border-amber-200 bg-amber-50 p-5">
+        <h3 class="font-display text-xl font-bold">Bullets missing numbers</h3>
+        <p class="mt-1 text-sm text-ink-soft">Recruiters shortlist metric-driven bullets far more often. Add %, ₹, $ or counts to these:</p>
+        <ul id="metricsList" class="mt-3 list-disc space-y-1.5 pl-5 text-sm"></ul>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-8 flex flex-wrap gap-3">
+        <button id="copySummary" class="rounded-xl border border-ink/20 bg-white px-5 py-3 text-sm font-bold transition hover:border-ink/50">Copy Summary</button>
+        <button id="downloadReport" class="rounded-xl bg-ink px-5 py-3 text-sm font-bold text-cream transition hover:bg-ink-soft">Download Report (.txt)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LINKEDIN BONUS ============ -->
+  <div class="mt-8 rounded-2xl border border-ink/10 bg-white p-5 shadow-card sm:p-8">
+    <div class="flex items-center gap-3">
+      <h2 class="font-display text-2xl font-bold tracking-tight">Bonus: LinkedIn Headline Generator</h2>
+      <span class="rounded-full bg-emerald-light px-3 py-1 text-xs font-bold text-emerald-dark">FREE</span>
+    </div>
+    <p class="mt-2 text-sm text-ink-soft">Turn your role + skills into a headline recruiters actually click.</p>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      <input id="liName" type="text" placeholder="Your name" class="rounded-xl border border-ink/15 bg-cream px-4 py-3 text-sm outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20">
+      <input id="liRole" type="text" placeholder="Target role (e.g. Data Analyst)" class="rounded-xl border border-ink/15 bg-cream px-4 py-3 text-sm outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20">
+      <input id="liSkills" type="text" placeholder="Top skills (comma separated)" class="rounded-xl border border-ink/15 bg-cream px-4 py-3 text-sm outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20">
+    </div>
+    <button id="liBtn" class="mt-4 flex items-center gap-2 rounded-xl bg-ink px-6 py-3 text-sm font-bold text-cream transition hover:bg-ink-soft disabled:opacity-60">
+      <span id="liBtnLabel">Generate Headlines</span>
+    </button>
+    <div id="liResults" class="mt-4 hidden space-y-2"></div>
+  </div>
+</section>
+
+<!-- ================= BOTTOM AD ================= -->
+<div class="ad-slot" id="bottom-ad" role="complementary" aria-label="Advertisement">
+  <span class="ad-label">Advertisement</span>
+  <div class="ad-frame">
+<script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="464498"></script>
+  </div>
+</div>
+
+<!-- ================= SEO ARTICLE ================= -->
+<article id="guide" class="mt-10 scroll-mt-24 border-t border-ink/10 bg-white">
+  <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-dark">The complete guide</p>
+    <h2 class="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">How to Beat the ATS in 2026: The Resume Guide Nobody Gave You</h2>
+
+    <h3 class="mt-10 font-display text-2xl font-bold">What Is an ATS and Why Does It Decide Your Fate?</h3>
+    <p class="mt-3 leading-relaxed text-ink-soft">An Applicant Tracking System (ATS) is the software standing between your resume and a human recruiter. When you hit "Apply" on a job portal, your resume doesn't land on someone's desk — it lands in a database run by systems like Workday, Taleo, Greenhouse or Lever. These systems parse your document into structured data, rank it against the job description, and decide whether a recruiter ever sees your name. Industry studies consistently find that roughly three out of four resumes are filtered out before a human reads a single line — not because the candidates were unqualified, but because the resume wasn't machine-readable.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft">This is the uncomfortable truth of modern job hunting: you are not writing for a person first. You are writing for a parser, and only if you survive the parser do you get a human audience. The good news is that ATS behavior is predictable. Once you understand how scoring works, beating it becomes a repeatable, almost mechanical process — which is exactly what RezScore automates for you.</p>
+
+    <h3 class="mt-10 font-display text-2xl font-bold">How ATS Resume Scoring Actually Works</h3>
+    <p class="mt-3 leading-relaxed text-ink-soft">Every ATS follows the same basic pipeline. Understanding it is the difference between guessing and engineering your way to an interview.</p>
+    <h4 class="mt-6 text-lg font-bold">1. Parsing: the resume becomes data</h4>
+    <p class="mt-2 leading-relaxed text-ink-soft">The system strips your file down to raw text and tries to slot it into fields — name, email, phone, work history, education, skills. Fancy layouts break this step constantly. A two-column design can interleave your job titles with your skills into gibberish. Text inside images, charts or text boxes is simply invisible. This is why RezScore shows you an "ATS parse preview": it's the closest thing to watching the machine read your resume with its own eyes.</p>
+    <h4 class="mt-6 text-lg font-bold">2. Keyword matching: the vocabulary test</h4>
+    <p class="mt-2 leading-relaxed text-ink-soft">Next, the parser counts how many terms from the job description appear in your resume — skills, tools, certifications, even exact phrases like "stakeholder management" or "A/B testing". This isn't about stuffing keywords; it's about speaking the same language as the posting. A data analyst resume that says "made charts" while the job asks for "dashboarding in Tableau" will score poorly even if the candidate did exactly that work. Our job-description match feature exists precisely for this: paste the posting, and see which keywords you're missing before you apply.</p>
+    <h4 class="mt-6 text-lg font-bold">3. Ranking and knockout rules</h4>
+    <p class="mt-2 leading-relaxed text-ink-soft">Finally, the system ranks candidates and applies knockout rules — missing location, missing work authorization, missing degree requirements. You can't control every rule, but you can control the biggest one: a clean, keyword-aligned, metric-rich resume. Candidates who fix parsing issues and keyword gaps typically see their callback rates double, because they stop competing against the 75% who get filtered and start competing against the 25% who get read.</p>
+
+    <h3 class="mt-10 font-display text-2xl font-bold">How to Use RezScore in 60 Seconds</h3>
+    <p class="mt-3 leading-relaxed text-ink-soft">You don't need an account, and you don't need to read a manual. Here's the entire workflow:</p>
+    <ol class="mt-4 list-decimal space-y-2.5 pl-6 leading-relaxed text-ink-soft">
+      <li><strong class="text-ink">Add your resume.</strong> Drag in a PDF or DOCX, or paste the text. Everything is parsed inside your browser — your file never leaves your device.</li>
+      <li><strong class="text-ink">Pick your target role.</strong> The AI tailors its checks to what hiring managers in that role actually screen for.</li>
+      <li><strong class="text-ink">Paste the job description (optional but powerful).</strong> This unlocks the match score and the missing-keyword list.</li>
+      <li><strong class="text-ink">Hit Analyze.</strong> In seconds you get an overall score, five section scores with fix-it tips, formatting warnings, weak bullets and a metrics check.</li>
+      <li><strong class="text-ink">Fix, then re-check.</strong> Rewrite weak bullets with one click, add the missing keywords, and watch your score climb. Your previous score is remembered so you can see the delta.</li>
+    </ol>
+
+    <h3 class="mt-10 font-display text-2xl font-bold">9 Fixes That Instantly Raise Your ATS Score</h3>
+    <p class="mt-3 leading-relaxed text-ink-soft">These are the highest-leverage changes our data shows, ordered by impact:</p>
+    <ol class="mt-4 list-decimal space-y-3 pl-6 leading-relaxed text-ink-soft">
+      <li><strong class="text-ink">Go single-column.</strong> Multi-column templates are the #1 parsing killer. One column, top to bottom, always.</li>
+      <li><strong class="text-ink">Ditch the tables and text boxes.</strong> Many parsers read them in the wrong order or skip them entirely.</li>
+      <li><strong class="text-ink">Use a standard section order:</strong> Contact, Summary, Experience, Skills, Education. Creative headings like "My Journey" confuse the parser — it looks for "Experience".</li>
+      <li><strong class="text-ink">Mirror the job description's vocabulary.</strong> If the posting says "client onboarding", don't write "customer setup". Same work, different score.</li>
+      <li><strong class="text-ink">Add a skills section with exact tool names.</strong> "Python, SQL, Tableau" beats "proficient in data tools" every time.</li>
+      <li><strong class="text-ink">Quantify everything.</strong> "Increased sales" is invisible; "Increased sales 32% across 4 regions" is unforgettable — to machines and humans.</li>
+      <li><strong class="text-ink">Kill weak verbs.</strong> "Responsible for", "helped with" and "worked on" signal vagueness. Start bullets with "Built", "Led", "Shipped", "Cut", "Grew".</li>
+      <li><strong class="text-ink">Save as a clean PDF or DOCX.</strong> Export from Google Docs or Word — not from Canva or Photoshop, which bake text into images.</li>
+      <li><strong class="text-ink">Keep contact info in the body.</strong> Headers and footers are stripped by some parsers, taking your phone number with them.</li>
+    </ol>
+
+    <h3 class="mt-10 font-display text-2xl font-bold">5 ATS Myths That Cost People Interviews</h3>
+    <p class="mt-3 leading-relaxed text-ink-soft"><strong class="text-ink">Myth 1: "The ATS is an evil robot that hates creativity."</strong> Reality: it's a dumb parser. It doesn't hate design; it just can't read it. Give it clean text and it treats you fairly.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft"><strong class="text-ink">Myth 2: "Keyword stuffing works."</strong> Modern systems (and the humans who read after them) penalize invisible keyword blocks and unnatural repetition. Relevance beats density.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft"><strong class="text-ink">Myth 3: "One resume fits all jobs."</strong> Tailoring your resume to each posting's keywords is the single biggest lever most candidates never pull. It takes ten minutes with a match-score tool.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft"><strong class="text-ink">Myth 4: "A longer resume shows more experience."</strong> For most roles, one focused page beats two diluted ones. Every line should earn its place with a metric or a keyword.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft"><strong class="text-ink">Myth 5: "If I didn't hear back, I wasn't qualified."</strong> Often you were filtered before being evaluated. Fix the machine-readable layer first — then judge your results.</p>
+
+    <h3 class="mt-10 font-display text-2xl font-bold">RezScore vs Paid ATS Checkers: An Honest Comparison</h3>
+    <p class="mt-3 leading-relaxed text-ink-soft">If you've searched for ATS checkers before, you've met the usual suspects: tools that show you a teaser score, then demand $19–49 a month to reveal the actual fixes. Their business model depends on your anxiety. Let's be blunt about what they offer that free tools historically didn't — and where that gap has closed.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft">Paid checkers traditionally had two advantages: job-description matching and AI rewriting. Both required expensive language models, so they sat behind paywalls. That equation changed as efficient open models got good enough to do this work at a fraction of the cost. RezScore uses exactly those models to give you the same two premium features — match scoring with missing-keyword chips, and one-click bullet rewriting — without the subscription.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft">Where paid tools still win: some offer integrations with job boards, application tracking dashboards, and human resume-writing services. If you want a person to rewrite your resume for you, that's a legitimate service worth paying for. But if what you need is a brutally honest machine-grade audit — parsing check, section scores, keyword gaps, formatting warnings — you don't need to pay. Run the same resume through a paid tool and RezScore; the fix lists will rhyme, because the underlying ATS logic is the same everywhere.</p>
+    <p class="mt-3 leading-relaxed text-ink-soft">One more honest note: no checker, free or paid, can guarantee an interview. A score of 90 doesn't help if you apply to roles you don't qualify for, and a score of 65 with a referral beats a 95 without one. Use the score as a diagnostic — like a blood test, not a verdict. Fix what's fixable, then spend your real energy on networking, tailoring applications, and building proof of work.</p>
+
+    <h3 class="mt-10 font-display text-2xl font-bold">Why RezScore Is Free</h3>
+    <p class="mt-3 leading-relaxed text-ink-soft">Paid tools charge $20–50 a month for what is essentially a checklist plus a keyword counter. We think the fundamentals — knowing whether a machine can read your resume — should be free for every job seeker on earth. RezScore runs entirely in your browser and uses efficient AI, so it costs us almost nothing to run. No accounts, no upsells, no watermark on your report. If this tool helps you land an interview, that's the whole business model.</p>
+  </div>
+</article>
+
+<!-- ================= FAQS ================= -->
+<section class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+  <h2 class="text-center font-display text-3xl font-bold tracking-tight">Frequently asked questions</h2>
+  <div class="mt-8 space-y-3">
+    <details class="faq rounded-2xl border border-ink/10 bg-white shadow-card">
+      <summary class="flex items-center justify-between gap-4 p-5 font-bold">Is RezScore really free?
+        <svg class="chev h-5 w-5 shrink-0 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <p class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-soft">Yes — every feature is free with unlimited usage: ATS scoring, job-description matching, AI bullet rewriting and the LinkedIn headline generator. No signup, no trial, no paywall.</p>
+    </details>
+    <details class="faq rounded-2xl border border-ink/10 bg-white shadow-card">
+      <summary class="flex items-center justify-between gap-4 p-5 font-bold">Is my resume uploaded to a server?
+        <svg class="chev h-5 w-5 shrink-0 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <p class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-soft">No. Your file is parsed and analyzed entirely in your browser. Only the extracted text is sent to the AI for scoring — nothing is stored, and your original file never leaves your device.</p>
+    </details>
+    <details class="faq rounded-2xl border border-ink/10 bg-white shadow-card">
+      <summary class="flex items-center justify-between gap-4 p-5 font-bold">What is a good ATS score?
+        <svg class="chev h-5 w-5 shrink-0 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <p class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-soft">80+ is strong and usually clears automated filters. 60–79 means you're close but need targeted fixes — check the section breakdown. Below 60, your resume is very likely being filtered out before a human sees it.</p>
+    </details>
+    <details class="faq rounded-2xl border border-ink/10 bg-white shadow-card">
+      <summary class="flex items-center justify-between gap-4 p-5 font-bold">Does RezScore work for Indian job portals like Naukri?
+        <svg class="chev h-5 w-5 shrink-0 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <p class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-soft">Yes. The checks cover the same parsing and keyword logic used by Naukri, LinkedIn, Workday, Taleo, Greenhouse and Lever — the underlying technology is nearly identical everywhere.</p>
+    </details>
+    <details class="faq rounded-2xl border border-ink/10 bg-white shadow-card">
+      <summary class="flex items-center justify-between gap-4 p-5 font-bold">Which file formats are supported?
+        <svg class="chev h-5 w-5 shrink-0 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <p class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-soft">PDF, DOCX and TXT uploads, plus paste-as-text for resumes from any source — Google Docs, portfolio sites, or plain notes.</p>
+    </details>
+    <details class="faq rounded-2xl border border-ink/10 bg-white shadow-card">
+      <summary class="flex items-center justify-between gap-4 p-5 font-bold">Why did my score drop after using a fancy template?
+        <svg class="chev h-5 w-5 shrink-0 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <p class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-soft">Designer templates often use tables, graphics and text boxes that ATS parsers can't read — your content is there, but the machine can't see it. A clean single-column layout almost always scores higher.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t border-ink/10 bg-ink text-cream/80">
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+      <a href="#" class="flex items-center gap-2.5">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#FAF9F6"/>
+          <path d="M18 33l10 10 18-20" stroke="#0E9F6E" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="font-display text-xl font-bold text-cream">RezScore</span>
+      </a>
+      <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+        <a href="#" class="transition hover:text-cream">About</a>
+        <a href="#" class="transition hover:text-cream">Contact</a>
+        <a href="#" class="transition hover:text-cream">Privacy Policy</a>
+        <a href="#" class="transition hover:text-cream">Terms of Service</a>
+      </nav>
+    </div>
+    <p class="mt-8 border-t border-cream/10 pt-6 text-center text-xs">&copy; 2026 RezScore. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script type="module">
+import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.min.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.worker.min.mjs';
+
+/* ============ helpers ============ */
+const $ = (id) => document.getElementById(id);
+const GROQ_URL = 'https://fixoraa-universal-backend.onrender.com/api/groq';
+let resumeText = '';
+let analysis = null;
+
+function showError(msg) {
+  const b = $('errBanner');
+  b.textContent = msg;
+  b.classList.remove('hidden');
+  b.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function hideError() { $('errBanner').classList.add('hidden'); }
+function setLoading(btn, label, on) {
+  btn.disabled = on;
+  label.innerHTML = on ? '<span class="spinner"></span> Working…' : label.dataset.orig;
+}
+async function copyText(t, btn) {
+  const done = () => { const o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = o, 1400); };
+  try { await navigator.clipboard.writeText(t); done(); }
+  catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e2) { showError('Copy failed — select the text manually.'); }
+    ta.remove();
+  }
+}
+async function groq(prompt) {
+  const res = await fetch(GROQ_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: 'llama-3.1-8b-instant', messages: [{ role: 'user', content: prompt }] })
+  });
+  if (!res.ok) throw new Error('AI service returned ' + res.status + '. Please try again in a moment.');
+  const data = await res.json();
+  const content = data?.choices?.[0]?.message?.content ?? data?.data?.choices?.[0]?.message?.content ?? '';
+  if (!content || !content.trim()) throw new Error('The AI returned an empty response. Please try again.');
+  return content;
+}
+function parseJSON(s) {
+  try { return JSON.parse(s); } catch (e) {
+    const m = s.match(/\{[\s\S]*\}/);
+    if (m) { try { return JSON.parse(m[0]); } catch (e2) {} }
+    throw new Error('Could not read the AI response. Please try again.');
+  }
+}
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/* ============ file parsing (client-side) ============ */
+async function extractFromFile(file) {
+  const ext = (file.name.split('.').pop() || '').toLowerCase();
+  if (ext === 'pdf') {
+    const buf = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+    let text = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map((it) => it.str).join(' ') + '\n';
+    }
+    return text;
+  }
+  if (ext === 'docx') {
+    if (!window.mammoth) throw new Error('DOCX library failed to load. Try paste-as-text instead.');
+    const buf = await file.arrayBuffer();
+    const result = await window.mammoth.extractRawText({ arrayBuffer: buf });
+    return result.value || '';
+  }
+  return await file.text();
+}
+
+const dz = $('dropZone'), fi = $('fileInput');
+dz.addEventListener('click', () => fi.click());
+['dragover', 'dragenter'].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.add('drop-active'); }));
+['dragleave', 'drop'].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.remove('drop-active'); }));
+dz.addEventListener('drop', (e) => { const f = e.dataTransfer.files[0]; if (f) loadFile(f); });
+fi.addEventListener('change', () => { const f = fi.files[0]; if (f) loadFile(f); });
+$('clearFile').addEventListener('click', () => {
+  fi.value = ''; resumeText = ''; $('resumeText').value = '';
+  $('fileStatus').classList.add('hidden'); $('fileStatus').classList.remove('flex');
+  updateCount();
+});
+async function loadFile(f) {
+  hideError();
+  $('fileStatusText').textContent = 'Reading ' + f.name + '…';
+  $('fileStatus').classList.remove('hidden'); $('fileStatus').classList.add('flex');
+  try {
+    const text = (await extractFromFile(f)).replace(/\r/g, '').trim();
+    if (text.length < 50) throw new Error('Could not extract enough text. Try paste-as-text instead.');
+    resumeText = text;
+    $('resumeText').value = text.slice(0, 20000);
+    $('fileStatusText').textContent = '✓ ' + f.name + ' — ' + text.length.toLocaleString() + ' characters extracted';
+    updateCount();
+  } catch (e) { showError(e.message || 'Could not read that file.'); }
+}
+$('resumeText').addEventListener('input', () => { resumeText = $('resumeText').value; updateCount(); });
+function updateCount() { $('charCount').textContent = $('resumeText').value.length.toLocaleString() + ' characters'; }
+const SAMPLE_RESUME = [
+  'Aarav Sharma', 'aarav.sharma@email.com | +91 98765 43210 | Bengaluru, India | linkedin.com/in/aaravsharma', '',
+  'SUMMARY', 'Software engineer with 3 years of experience building web applications. Responsible for various frontend tasks and helped with backend work.',
+  '',
+  'EXPERIENCE', 'Frontend Developer — TechNova Solutions, Bengaluru (2022–Present)',
+  '- Responsible for developing user interfaces for client projects', '- Helped with API integration and bug fixes', '- Worked on improving page load times',
+  'Intern — StartupXYZ (2021–2022)', '- Assisted senior developers with daily tasks', '',
+  'SKILLS', 'JavaScript, React, HTML, CSS, Git', '',
+  'EDUCATION', 'B.Tech Computer Science — VTU (2018–2022)'
+].join('\n');
+$('sampleBtn').addEventListener('click', () => {
+  hideError();
+  resumeText = SAMPLE_RESUME;
+  $('resumeText').value = SAMPLE_RESUME;
+  updateCount();
+  $('tool').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+/* ============ analyze ============ */
+const SECTION_META = [
+  ['contact', 'Contact Info', 'Name, email, phone, location, links'],
+  ['summary', 'Summary', 'Professional headline & summary'],
+  ['experience', 'Experience', 'Roles, bullets, achievements'],
+  ['skills', 'Skills', 'Tools, technologies, keywords'],
+  ['education', 'Education', 'Degrees, institutions, dates']
+];
+function verdictFor(s) {
+  if (s >= 80) return ['Excellent — ATS-ready', 'This resume should sail through automated filters. Polish the tips below to push even higher.'];
+  if (s >= 60) return ['Good — a few fixes away', 'Solid foundation. Fix the flagged sections and re-check to break 80.'];
+  if (s >= 40) return ['At risk — needs work', 'An ATS would likely rank this below competing resumes. Work through each section.'];
+  return ['Likely filtered out', 'This resume is probably being rejected before a human sees it. The fixes below will change that.'];
+}
+function heuristicKillers(text) {
+  const out = [];
+  if (/\t| {4,}/.test(text)) out.push('Possible tables or multi-column layout detected (tabs or wide gaps found). Parsers often read these in the wrong order.');
+  const lines = text.split('\n').filter((l) => l.trim());
+  if (lines.length > 3 && text.length / lines.length > 260) out.push('Very long unbroken lines detected — content may be one big block, which breaks section detection.');
+  if (!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(text)) out.push('No email address found in the text — it may be trapped inside a header, footer or graphic.');
+  if (!/(\+?\d[\d\s\-.()]{6,}\d)/.test(text)) out.push('No phone-number-like pattern found — keep contact details as plain body text.');
+  return out;
+}
+
+$('analyzeBtn').addEventListener('click', async () => {
+  hideError();
+  const text = ($('resumeText').value || '').trim();
+  if (text.length < 120) { showError('Please add your resume first — upload a file or paste at least a few lines of text.'); return; }
+  const role = $('roleSelect').value;
+  const btn = $('analyzeBtn'), label = $('analyzeBtnLabel');
+  if (!label.dataset.orig) label.dataset.orig = label.innerHTML;
+  setLoading(btn, label, true);
+  try {
+    const prompt =
+      'You are an ATS (Applicant Tracking System) resume auditor. Target role: ' + role + '.\n' +
+      'Score how likely this resume passes automated parsing + keyword screening. Return ONLY valid JSON, no markdown, no commentary:\n' +
+      '{"overall":0-100,"sections":{"contact":{"score":0-100,"tips":["tip1","tip2"]},"summary":{"score":0-100,"tips":[]},"experience":{"score":0-100,"tips":[]},"skills":{"score":0-100,"tips":[]},"education":{"score":0-100,"tips":[]}},"formatting_killers":["issue1"],"weak_bullets":["exact weak bullet copied from resume"],"bullets_missing_metrics":["exact bullet without numbers"]}\n' +
+      'Rules: 2-4 short actionable tips per section. weak_bullets: up to 6 vague/weak bullets copied EXACTLY from the resume. bullets_missing_metrics: bullets with no numbers/%. formatting_killers: ATS-hostile formatting issues inferable from the text (tables, graphics, text boxes, headers).\n' +
+      'RESUME:\n"""' + text.slice(0, 6000) + '"""';
+    analysis = parseJSON(await groq(prompt));
+    renderAnalysis(text);
+    $('results').classList.remove('hidden');
+    $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const jd = ($('jdText').value || '').trim();
+    if (jd.length > 30) { await runJdMatch(text, jd); }
+    else { $('jdBlock').classList.add('hidden'); }
+  } catch (e) { showError(e.message || 'Analysis failed. Please try again.'); }
+  setLoading(btn, label, false);
+});
+
+function renderAnalysis(text) {
+  const a = analysis;
+  const overall = Math.max(0, Math.min(100, Math.round(a.overall || 0)));
+  // score ring
+  const C = 326.73;
+  requestAnimationFrame(() => {
+    $('scoreArc').style.strokeDashoffset = C - (C * overall) / 100;
+    $('scoreArc').setAttribute('stroke', overall >= 80 ? '#0E9F6E' : overall >= 60 ? '#D9A021' : '#DC2626');
+  });
+  let n = 0;
+  const tick = setInterval(() => { n += 2; if (n >= overall) { n = overall; clearInterval(tick); } $('scoreNum').textContent = n; }, 24);
+  const [v, vs] = verdictFor(overall);
+  $('verdict').textContent = v; $('verdictSub').textContent = vs;
+  // before/after delta
+  const prev = parseInt(localStorage.getItem('rezscore_last') || '', 10);
+  const badge = $('deltaBadge');
+  if (!isNaN(prev) && prev !== overall) {
+    const d = overall - prev;
+    badge.textContent = (d > 0 ? '▲ +' : '▼ ') + d + ' vs your last check (' + prev + ')';
+    badge.classList.remove('hidden');
+  } else badge.classList.add('hidden');
+  localStorage.setItem('rezscore_last', String(overall));
+  // sections
+  const wrap = $('sectionBars'); wrap.innerHTML = '';
+  SECTION_META.forEach(([key, label, sub]) => {
+    const s = (a.sections && a.sections[key]) || { score: 0, tips: [] };
+    const sc = Math.max(0, Math.min(100, Math.round(s.score || 0)));
+    const color = sc >= 80 ? 'bg-emerald' : sc >= 60 ? 'bg-amber-500' : 'bg-red-500';
+    const tips = (s.tips || []).map((t) => '<li class="text-sm text-ink-soft">• ' + esc(t) + '</li>').join('');
+    const det = document.createElement('details');
+    det.className = 'rounded-2xl border border-ink/10 bg-white p-4 shadow-card';
+    det.innerHTML =
+      '<summary class="flex cursor-pointer items-center gap-4">' +
+        '<div class="min-w-0 flex-1"><div class="flex items-baseline justify-between gap-2">' +
+          '<span class="truncate text-sm font-bold">' + esc(label) + '</span>' +
+          '<span class="font-display text-lg font-bold">' + sc + '</span></div>' +
+          '<div class="mt-2 h-2.5 overflow-hidden rounded-full bg-sand"><div class="bar-fill h-full rounded-full ' + color + '" style="width:0%"></div></div>' +
+          '<p class="mt-1 text-xs text-ink-faint">' + esc(sub) + ' — tap for fix tips</p></div></summary>' +
+        (tips ? '<ul class="mt-3 space-y-1.5 border-t border-ink/10 pt-3">' + tips + '</ul>' : '');
+    wrap.appendChild(det);
+    requestAnimationFrame(() => requestAnimationFrame(() => { det.querySelector('.bar-fill').style.width = sc + '%'; }));
+  });
+  // ATS preview
+  $('atsView').textContent = text.slice(0, 8000);
+  // killers: AI + heuristics, deduped
+  const killers = [...(a.formatting_killers || []), ...heuristicKillers(text)];
+  const kl = $('killersList'); kl.innerHTML = '';
+  if (killers.length) {
+    $('killersBlock').classList.remove('hidden');
+    [...new Set(killers)].slice(0, 8).forEach((k) => {
+      const d = document.createElement('div');
+      d.className = 'flex gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm';
+      d.innerHTML = '<span class="mt-0.5 font-bold text-red-600">✕</span><span class="text-red-800">' + esc(k) + '</span>';
+      kl.appendChild(d);
+    });
+  } else $('killersBlock').classList.add('hidden');
+  // weak bullets
+  const wl = $('weakList'); wl.innerHTML = '';
+  const weak = (a.weak_bullets || []).filter(Boolean).slice(0, 6);
+  if (weak.length) {
+    $('weakBlock').classList.remove('hidden');
+    weak.forEach((b, i) => {
+      const d = document.createElement('div');
+      d.className = 'rounded-2xl border border-ink/10 bg-white p-4 shadow-card';
+      d.innerHTML =
+        '<p class="text-sm italic text-ink-soft">"' + esc(b) + '"</p>' +
+        '<div class="mt-3 flex flex-wrap items-center gap-2">' +
+          '<button data-i="' + i + '" class="rwBtn rounded-xl bg-emerald px-4 py-2 text-xs font-bold text-white transition hover:bg-emerald-dark">✨ Rewrite with AI</button>' +
+          '<div class="rwOut hidden w-full"></div></div>';
+      wl.appendChild(d);
+    });
+    wl.querySelectorAll('.rwBtn').forEach((btn) => btn.addEventListener('click', () => rewriteBullet(btn, weak[+btn.dataset.i])));
+  } else $('weakBlock').classList.add('hidden');
+  // metrics
+  const ml = $('metricsList'); ml.innerHTML = '';
+  const mets = (a.bullets_missing_metrics || []).filter(Boolean).slice(0, 8);
+  if (mets.length) {
+    $('metricsBlock').classList.remove('hidden');
+    mets.forEach((b) => { const li = document.createElement('li'); li.innerHTML = esc(b) + ' <span class="text-xs font-semibold text-amber-700">— add %, ₹, $ or a count</span>'; ml.appendChild(li); });
+  } else $('metricsBlock').classList.add('hidden');
+}
+
+async function rewriteBullet(btn, bullet) {
+  const out = btn.parentElement.querySelector('.rwOut');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Rewriting…';
+  try {
+    const r = await groq('Rewrite this resume bullet to be strong, specific and metric-driven, under 25 words. Start with a powerful action verb. Return ONLY the rewritten bullet, no quotes, no commentary.\nBULLET: ' + bullet);
+    const clean = r.trim().replace(/^["'“”]+|["'“”]+$/g, '');
+    out.classList.remove('hidden');
+    out.innerHTML = '<p class="rounded-xl bg-emerald-light px-4 py-3 text-sm font-medium text-ink">"' + esc(clean) + '"</p>' +
+      '<button class="cpBtn mt-2 rounded-lg border border-ink/20 px-3 py-1.5 text-xs font-bold hover:border-ink/50">Copy</button>';
+    out.querySelector('.cpBtn').addEventListener('click', (e) => copyText(clean, e.target));
+    btn.innerHTML = '✓ Rewritten';
+  } catch (e) { btn.disabled = false; btn.textContent = '✨ Retry Rewrite'; showError(e.message); }
+}
+
+async function runJdMatch(resume, jd) {
+  const block = $('jdBlock');
+  block.classList.remove('hidden');
+  $('jdPct').textContent = '…';
+  try {
+    const r = parseJSON(await groq(
+      'Compare this RESUME against the JOB DESCRIPTION. Return ONLY valid JSON: {"match":0-100,"matched":["keyword"],"missing":["keyword"]}.\n' +
+      '"match" = % of the job\'s important keywords/skills present in the resume. "matched": up to 12 found keywords. "missing": up to 12 important job keywords ABSENT from the resume.\n' +
+      'RESUME:\n"""' + resume.slice(0, 4000) + '"""\nJOB DESCRIPTION:\n"""' + jd.slice(0, 3000) + '"""'
+    ));
+    const pct = Math.max(0, Math.min(100, Math.round(r.match || 0)));
+    let n = 0;
+    const tick = setInterval(() => { n += 4; if (n >= pct) { n = pct; clearInterval(tick); } $('jdPct').textContent = n + '%'; }, 30);
+    const chip = (t, cls) => '<span class="rounded-full px-3 py-1 text-xs font-semibold ' + cls + '">' + esc(t) + '</span>';
+    $('kwMatched').innerHTML = (r.matched || []).map((k) => chip(k, 'bg-emerald-light text-emerald-dark')).join('') || '<span class="text-sm text-ink-faint">None detected</span>';
+    $('kwMissing').innerHTML = (r.missing || []).map((k) => chip(k, 'bg-red-100 text-red-700')).join('') || '<span class="text-sm text-ink-faint">None — great coverage!</span>';
+  } catch (e) { block.classList.add('hidden'); }
+}
+
+/* ============ actions ============ */
+$('copySummary').addEventListener('click', (e) => {
+  if (!analysis) return;
+  const a = analysis;
+  let s = 'RezScore ATS Report — Overall: ' + Math.round(a.overall || 0) + '/100\n';
+  SECTION_META.forEach(([k, label]) => { s += '- ' + label + ': ' + Math.round((a.sections?.[k]?.score) || 0) + '/100\n'; });
+  if (a.formatting_killers?.length) s += 'Formatting killers: ' + a.formatting_killers.join('; ') + '\n';
+  copyText(s, e.target);
+});
+$('downloadReport').addEventListener('click', () => {
+  if (!analysis) return;
+  const a = analysis;
+  let s = 'REZSCORE — ATS RESUME REPORT\nGenerated: ' + new Date().toLocaleString() + '\n\nOVERALL SCORE: ' + Math.round(a.overall || 0) + '/100\n\n';
+  SECTION_META.forEach(([k, label]) => {
+    const sec = a.sections?.[k] || {};
+    s += label.toUpperCase() + ': ' + Math.round(sec.score || 0) + '/100\n';
+    (sec.tips || []).forEach((t) => s += '  - ' + t + '\n');
+    s += '\n';
+  });
+  if (a.formatting_killers?.length) s += 'FORMATTING KILLERS:\n' + a.formatting_killers.map((k) => '  - ' + k).join('\n') + '\n\n';
+  if (a.weak_bullets?.length) s += 'WEAK BULLETS TO REWRITE:\n' + a.weak_bullets.map((b) => '  - ' + b).join('\n') + '\n\n';
+  s += 'Checked with RezScore — free ATS resume checker.\n';
+  const blob = new Blob([s], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url; link.download = 'rezscore-ats-report.txt';
+  document.body.appendChild(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+});
+
+/* ============ LinkedIn headlines ============ */
+$('liBtn').addEventListener('click', async () => {
+  hideError();
+  const name = $('liName').value.trim(), role = $('liRole').value.trim(), skills = $('liSkills').value.trim();
+  if (!role && !skills) { showError('Enter at least a target role or your top skills.'); return; }
+  const btn = $('liBtn'), label = $('liBtnLabel');
+  if (!label.dataset.orig) label.dataset.orig = label.innerHTML;
+  setLoading(btn, label, true);
+  try {
+    const r = parseJSON(await groq(
+      'Write 5 punchy LinkedIn headlines (each under 200 characters) for ' + (name ? name + ', ' : '') +
+      'a ' + (role || 'professional') + ' skilled in ' + (skills || 'their field') + '.\n' +
+      'Make them recruiter-friendly with keywords and a hook. Return ONLY valid JSON: {"headlines":["h1","h2","h3","h4","h5"]}'
+    ));
+    const box = $('liResults'); box.innerHTML = ''; box.classList.remove('hidden');
+    (r.headlines || []).slice(0, 5).forEach((h) => {
+      const d = document.createElement('div');
+      d.className = 'flex items-start justify-between gap-3 rounded-xl border border-ink/10 bg-cream px-4 py-3';
+      d.innerHTML = '<p class="text-sm font-medium">' + esc(h) + '</p>';
+      const b = document.createElement('button');
+      b.className = 'shrink-0 rounded-lg border border-ink/20 px-3 py-1.5 text-xs font-bold hover:border-ink/50';
+      b.textContent = 'Copy';
+      b.addEventListener('click', () => copyText(h, b));
+      d.appendChild(b); box.appendChild(d);
+    });
+    if (!box.children.length) throw new Error('No headlines returned. Try again.');
+  } catch (e) { showError(e.message || 'Headline generation failed.'); }
+  setLoading(btn, label, false);
+});
+</script>
+</body>
+</html>

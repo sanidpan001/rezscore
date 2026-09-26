@@ -473,22 +473,45 @@ async function copyText(t, btn) {
     ta.remove();
   }
 }
-async function groq(prompt) {
-  const res = await fetch(GROQ_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: 'llama-3.1-8b-instant', messages: [{ role: 'user', content: prompt }] })
-  });
-  if (!res.ok) throw new Error('AI service returned ' + res.status + '. Please try again in a moment.');
-  const data = await res.json();
-  const content = data?.choices?.[0]?.message?.content ?? data?.data?.choices?.[0]?.message?.content ?? '';
-  if (!content || !content.trim()) throw new Error('The AI returned an empty response. Please try again.');
-  return content;
+async function groq(prompt, attempt = 0) {
+  try {
+    const res = await fetch(GROQ_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'openai/gpt-oss-20b', max_tokens: 3000, reasoning_effort: 'low', messages: [{ role: 'user', content: prompt }] })
+    });
+    if (!res.ok) throw new Error('AI service returned ' + res.status + '. Please try again in a moment.');
+    const data = await res.json();
+    const content = data?.choices?.[0]?.message?.content ?? data?.data?.choices?.[0]?.message?.content ?? '';
+    if (!content || !content.trim()) throw new Error('The AI returned an empty response. Please try again.');
+    return content;
+  } catch (err) {
+    if (attempt < 2) {
+      await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
+      return groq(prompt, attempt + 1);
+    }
+    throw err;
+  }
 }
 function parseJSON(s) {
-  try { return JSON.parse(s); } catch (e) {
+  const repair = (t) => {
+    // Model glitch repair: stray quote like },"{" -> },{
+    t = t.replace(/\},\s*"\s*\{/g, '},{');
+    // Drop stray quotes at parse-error positions (bounded)
+    for (let i = 0; i < 12; i++) {
+      try { return JSON.parse(t); }
+      catch (err) {
+        const m = /(?:position|column)\s+(\d+)/i.exec(err.message || '');
+        const pos = m ? +m[1] : -1;
+        if (pos < 0 || pos >= t.length || t[pos] !== '"') throw err;
+        t = t.slice(0, pos) + t.slice(pos + 1);
+      }
+    }
+    return JSON.parse(t);
+  };
+  try { return repair(s); } catch (e) {
     const m = s.match(/\{[\s\S]*\}/);
-    if (m) { try { return JSON.parse(m[0]); } catch (e2) {} }
+    if (m) { try { return repair(m[0]); } catch (e2) {} }
     throw new Error('Could not read the AI response. Please try again.');
   }
 }
